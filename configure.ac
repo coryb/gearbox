@@ -1,7 +1,7 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_PREREQ([2.69])
+AC_PREREQ([2.63])
 AC_INIT([gearbox], [0.1], [gearbox@corybennett.org])
 AC_CONFIG_SRCDIR([apache/mod_gearbox/mod_gearbox.cc])
 AC_CONFIG_MACRO_DIR([m4])
@@ -51,6 +51,7 @@ if test -z "${TRUE_BIN}"; then
 fi
 AC_DEFINE_UNQUOTED([TRUE_BIN], ["${TRUE_BIN}"], [path to true binary])
 
+AC_DEFINE_UNQUOTED([LOCALSTATEDIR], ["`test "${prefix}" = "NONE" && prefix=; eval echo ${datarootdir}`"], [path gearbox stores state files])
 AC_DEFINE_UNQUOTED([SYSCONFDIR], ["`test "${prefix}" = "NONE" && prefix=; eval echo ${sysconfdir}`"], [path to system configuration files])
 AC_DEFINE_UNQUOTED([DATADIR], ["`test "${prefix}" = "NONE" && prefix=; eval echo ${datarootdir}`"], [path to data directory])
 AC_DEFINE_UNQUOTED([PLUGINSDIR], ["`test "${exec_prefix}" = "NONE" && exec_prefix=${prefix}; test "${exec_prefix}" = "NONE" && exec_prefix=; eval echo ${libexecdir}/gearbox/plugins`"], [path to data directory])
@@ -82,6 +83,35 @@ AC_CHECK_LIB([crypto], [main], [
 # FIXME: Replace `main' with a function in `-lzookeeper_st':
 AC_CHECK_LIB([zookeeper_st], [main], [], [])
 
+# apache stuff from https://github.com/timfel/mod_auth_openid/blob/master/configure.ac
+# this will look for apxs command - put it in $APXS, fail on failure
+AX_WITH_APXS()
+# find apr-config binary
+AC_ARG_WITH(apr_config, AC_HELP_STRING([[--with-apr-config=FILE]], [Path to apr-config program]),
+			[ apr_config="$withval" ],
+			[AC_PATH_PROGS(apr_config,
+				[apr-config apr-0-config apr-1-config], 
+				[no], 
+				[$PATH:/usr/sbin/:/usr/local/apache2/bin]
+			)]
+)
+
+if test "$apr_config" = "no"; then
+   AC_MSG_ERROR(Could not find the apr-config program.  You can specify a location with the --with-apr-config=FILE option.  It may be named apr-0-config or apr-1-config and can be found in your apache2 bin directory.)
+fi
+
+$apr_config --cppflags &> /dev/null
+if test "$?" != "0"; then
+  AC_MSG_ERROR($apr_config is not a valid apr-config program)
+fi
+
+APR_LDFLAGS="`${apr_config} --link-ld --libs`"
+AC_SUBST(APR_LDFLAGS)
+
+APACHE_CFLAGS="-I`${APXS} -q INCLUDEDIR` -I`${apr_config} --includedir`"
+AC_SUBST(APACHE_CFLAGS)
+
+# soci
 AC_CHECK_LIB([soci_core], [main], [
   AC_ARG_VAR([SOCI_CORE_LIB])
   SOCI_CORE_LIB=-lsoci_core
@@ -119,7 +149,7 @@ AM_CONDITIONAL([WITH_PHP], [test x$with_php = xtrue])
 AC_CHECK_HEADERS([arpa/inet.h fcntl.h limits.h stdint.h stdlib.h string.h sys/file.h sys/ioctl.h sys/socket.h sys/time.h unistd.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
-AC_CHECK_HEADER_STDBOOL
+AC_HEADER_STDBOOL
 AC_C_INLINE
 AC_TYPE_INT32_T
 AC_TYPE_INT64_T

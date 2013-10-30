@@ -18,7 +18,6 @@ Contents:
    getting_started.rst
    rest_api.rst
    workers.rst
-   building_gearbox.rst
 
 Indices and tables
 ==================

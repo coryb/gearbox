@@ -577,14 +577,8 @@ your actual classes is up to you.
 Packaging the Worker
 ====================
 
-Finally, let's walk 
-:download:`through the YICF for packaging the worker <examples/barn/pkg/gearbox_barn_worker.yicf>`.
-The YICF is useful because it describes in one place the infrastructure
-files required to actually create a worker. 
-
-.. literalinclude:: examples/barn/pkg/gearbox_barn_worker.yicf
-
-The components in the package include:
+Finally, let's walk through how you might package up this worker
+for distribution. The components in your package should include:
 
 01. :file:`conf/gearbox/gearbox-handlers.d/*` -- Infrastructure files required
     by Gearbox. Gearbox uses these filenames to check whether incoming HTTP 

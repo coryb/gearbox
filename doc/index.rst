@@ -5,9 +5,9 @@
 Gearbox Developer Guide
 =======================
 
-Gearbox is a framework for building scalable, reliable, asynchronous REST services in 
-a standard manner. It is available in SVN under 
-`http://svn.corp.yahoo.com/view/yahoo/tools/gearbox/ <yahoo/tools/gearbox>`_.
+Gearbox is an open source framework for building scalable, reliable,
+asynchronous REST services in a standard manner. It is available 
+`on GitHub <https://github.com/coryb/gearbox>`_.
 
 Contents:
 

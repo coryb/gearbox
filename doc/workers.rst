@@ -16,12 +16,12 @@ To create a worker, you must write:
 
 * Schemas that define the form of the JSON that the worker accepts. For example, your schemas require that any "get" request must include a particular JSON boolean flag. Gearbox enforces these schemas for you.
 * Configuration files for :program:`apache` and Gearbox.
-* A YICF defining the structure of the package, including some infrastructure for :program:`daemontools` in :file:`$ROOT/conf/gearbox/gearbox-handlers.d`.
+* Infrastructure for :program:`daemontools` in :file:`$ROOT/conf/gearbox/gearbox-handlers.d`.
 
-This section provides examples of worker components using the worker 
-`gearbox_barn_worker <http://dist.corp.yahoo.com/by-package/gearbox_barn_worker/>`_. 
-This example worker happens to be written in PHP, but as mentioned above, you are 
-more than welcome to write Perl and C++ workers as well.
+This section walks through various worker concepts using an example
+worker written in PHP. As mentioned above, you are welcome to write
+workers in other languages that support Gearbox bindings, such as
+Perl and C++.
 
 .. _json_schemas:
 

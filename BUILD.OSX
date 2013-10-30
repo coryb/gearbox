@@ -20,6 +20,7 @@ sudo cpan install Archive::Tar
 sudo cpan install Test::Trivial
 sudo cpan install JSON
 sudo cpan install Log::Dispatch
+easy_install -U Sphinx
 
 INIT
 ====
@@ -31,3 +32,7 @@ export PKG_CONFIG_PATH=${PKG_CONFIG_PATH}:/usr/local/opt/ossp-uuid/lib/pkgconfig
 BUILD
 =====
 make check
+
+BUILD DOCUMENTATION
+===================
+cd doc && make html

@@ -70,8 +70,7 @@ So how does Gearbox actually help you build asynchronous REST web services?
   in the foreground (synchronous) and background (asynchronous) on your 
   behalf. Gearbox is responsible for maintaining the worker queue. 
   The worker queue is persisted to 
-  `sqlite <http://sqlite.org>`_, `mysql <http://mysql.com>`_, 
-  or `Sherpa <http://devel.corp.yahoo.com/sherpa/guide/>`_.
+  `sqlite <http://sqlite.org>`_ or `mysql <http://mysql.com>`_.
 
 * Providing a Worker API: The Gearbox API includes everything you need
   to handle incoming requests, return responses, set events and respond to

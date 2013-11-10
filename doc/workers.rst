@@ -16,12 +16,12 @@ To create a worker, you must write:
 
 * Schemas that define the form of the JSON that the worker accepts. For example, your schemas require that any "get" request must include a particular JSON boolean flag. Gearbox enforces these schemas for you.
 * Configuration files for :program:`apache` and Gearbox.
-* A YICF defining the structure of the package, including some infrastructure for :program:`daemontools` in :file:`$ROOT/conf/gearbox/gearbox-handlers.d`.
+* Infrastructure for :program:`daemontools` in :file:`$ROOT/conf/gearbox/gearbox-handlers.d`.
 
-This section provides examples of worker components using the worker 
-`gearbox_barn_worker <http://dist.corp.yahoo.com/by-package/gearbox_barn_worker/>`_. 
-This example worker happens to be written in PHP, but as mentioned above, you are 
-more than welcome to write Perl and C++ workers as well.
+This section walks through various worker concepts using an example
+worker written in PHP. As mentioned above, you are welcome to write
+workers in other languages that support Gearbox bindings, such as
+Perl and C++.
 
 .. _json_schemas:
 
@@ -577,14 +577,8 @@ your actual classes is up to you.
 Packaging the Worker
 ====================
 
-Finally, let's walk 
-:download:`through the YICF for packaging the worker <examples/barn/pkg/gearbox_barn_worker.yicf>`.
-The YICF is useful because it describes in one place the infrastructure
-files required to actually create a worker. 
-
-.. literalinclude:: examples/barn/pkg/gearbox_barn_worker.yicf
-
-The components in the package include:
+Finally, let's walk through how you might package up this worker
+for distribution. The components in your package should include:
 
 01. :file:`conf/gearbox/gearbox-handlers.d/*` -- Infrastructure files required
     by Gearbox. Gearbox uses these filenames to check whether incoming HTTP 

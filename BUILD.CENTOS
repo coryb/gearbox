@@ -50,6 +50,10 @@ sudo yum install -y cpan perl-Log-Log4perl perl-Archive-Tar perl-JSON \
                     perl-Log-Dispatch perl-ExtUtils-Embed
 sudo cpan Test::Trivial 
 
+install Sphinx
+==============
+easy_install -U Sphinx
+
 INIT
 =====
 ./autogen.sh
@@ -65,3 +69,7 @@ make check
 Note that two test in gearbox/t/swig/perl/status.t fail due to issues with
 $status->meta().  It may be related to the version of swig we're using here, but
 I haven't diagnosed the problem yet.
+
+BUILD DOCUMENTATION
+===================
+cd doc && make html
